@@ -5,7 +5,7 @@ use ello_rusty_collection::math::{
 };
 
 fn main() {
-    // "n0" mean no argv0 which should be the name of the running file.
+    // "n0" mean no argv0 which is the name of the running file.
     let arg_strn0: String;
     {
         let mut first = true;
