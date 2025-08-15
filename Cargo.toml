@@ -1,0 +1,9 @@
+[package]
+name = "ello-rusty-collection"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+
+[[bin]]
+name = "ello-rusty-collection"
