@@ -28,7 +28,7 @@ pub fn parse(input: String) -> Vec<String> {
                     word.push(ch);
                     continue;
                 }
-                panic!("{ch} char is invalid");
+                panic!("'{ch}' in '{input}' is not a parsable math character.");
             },
         }
     }
