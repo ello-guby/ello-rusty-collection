@@ -67,13 +67,14 @@ impl ArgProcessor {
     }
     /**
      * Get a copy of opt.
+     * Panic if the long didn't exist.
      */
-    pub fn opt(&self, long: &str) -> Option<ArgOpt> {
+    pub fn opt(&self, long: &str) -> ArgOpt {
         let opt = match self.opts.get(long) {
             Some(v) => v,
-            None => return None,
+            None => panic!("there are no opt with the long of '${long}' in '${self}'"),
         };
-        Some(ArgOpt::new_processed(opt.to_string().as_str(), opt.process))
+        ArgOpt::new_processed(opt.to_string().as_str(), opt.process)
     }
 
     /**
@@ -112,10 +113,10 @@ impl ArgProcessor {
                     }
                 }
             }
-            for opt in self.opts.values_mut() {
-                if opt.process.is_none() {
-                    opt.process = Some(false);
-                }
+        }
+        for opt in self.opts.values_mut() {
+            if opt.process.is_none() {
+                opt.process = Some(false);
             }
         }
         output_args
@@ -187,10 +188,13 @@ impl ArgOpt {
      * Get if the ArgOpt is "proc" by ArgProcessor.process().
      * return Some(true) - if it is "proc" by ArgProcessor.process(),
      * return Some(false) - if it did not get "proc" by ArgProcessor.process(),
-     * return None - if the ArgOpt has not been through ArgProcessor.porcess().
+     * return None - if the ArgOpt has not been through ArgProcessor.process().
      */
-    pub fn processed(&self) -> Option<bool> {
-        self.process
+    pub fn processed(&self) -> bool {
+        match self.process {
+            Some(v) => v,
+            None => panic!("'${self:?}' did not get processed yet."),
+        }
     }
 }
 
